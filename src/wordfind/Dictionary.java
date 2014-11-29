@@ -43,7 +43,7 @@ public class Dictionary {
 
 		if (iteration < word.length()) {
 			int index = word.charAt(iteration) - 'a';
-			System.out.println(index);
+			// System.out.println(index);
 			if (dict.get(index) == null)
 				dict.set(index, new Dictionary(word.charAt(iteration)));
 
@@ -93,8 +93,8 @@ public class Dictionary {
 		String line;
 
 		while ((line = br.readLine()) != null) {
+			// System.out.println(line);
 
-			System.out.println(line);
 			// Checks if word is allowed to be added to the Dictionary through
 			// the following criteria:
 			// 1) Does not contain upper case letters; proper nouns not allowed.
@@ -111,14 +111,33 @@ public class Dictionary {
 		br.close();
 	}
 
+	/**
+	 * Checks if the dictionary contains a word with the next letter as the
+	 * input char
+	 * 
+	 * @param c
+	 * @return true if the dictionary contains the input char as a node, false
+	 *         otherwise.
+	 */
 	public boolean hasChar(char c) {
 		return dict.get(Character.toLowerCase(c) - 'a') != null;
 	}
 
+	/**
+	 * Retrieves the sub-dictionary of the input char.
+	 * 
+	 * @param c
+	 * @return the sub-dictionary of the char.
+	 */
 	public Dictionary getSubTree(char c) {
 		return dict.get(Character.toLowerCase(c) - 'a');
 	}
 
+	/**
+	 * Get size of the dictionary
+	 * 
+	 * @return total number of words added to the dictionary
+	 */
 	public int getSize() {
 		return size;
 	}
