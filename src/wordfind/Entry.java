@@ -1,5 +1,6 @@
 package wordfind;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Entry {
@@ -10,9 +11,13 @@ public class Entry {
 	
 	public Entry ( String word, List <Coordinates> passedPath){
 		this.word = word;
-		path.addAll(passedPath);
+		path = new ArrayList<Coordinates>(passedPath);
 		
 		//maxVert = path.get(0).getRow() + ;
 	}
 
+	public String getWord(){
+		return word;
+	}
+	
 }
