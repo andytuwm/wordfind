@@ -1,7 +1,7 @@
 package wordfind;
 
 /**
- * Quick and dirty coordinates class that is determined in terms of rows and
+ * Coordinates class that is determined in terms of rows and
  * columns.
  * 
  * @author Andy

@@ -30,6 +30,8 @@ public class WordTest {
 		entries = brd.solveBoard(dictionary, "files/board.txt");
 		
 		System.out.println(entries);
+		System.out.println(entries.size() + " words possible");
+		System.out.println("Dictinoary has " + dictionary.getSize() + " words");
 	}
 	
 }
