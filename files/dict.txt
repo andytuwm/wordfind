@@ -48841,7 +48841,6 @@ obelisk's
 obelisks
 obese
 obesity
-obesity's
 obey
 obeyed
 obeying
@@ -48853,11 +48852,10 @@ obfuscating
 obfuscation
 obfuscation's
 obit
-obit's
 obits
 obituaries
 obituary
-obituary's
+obis
 object
 object's
 objected
