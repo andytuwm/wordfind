@@ -20,6 +20,7 @@ public class Board {
 	private boolean topBase = false;
 	List<Coordinates> startPoints;
 	List<Coordinates> startCopy;
+	private BufferedReader br;
 
 	public Board() {
 		boardList = new ArrayList<String>();
@@ -251,7 +252,7 @@ public class Board {
 	 * @throws IOException
 	 */
 	public void makeBoard(String fileIn) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(fileIn));
+		br = new BufferedReader(new FileReader(fileIn));
 		String line = br.readLine();
 		String[] xy = line.split("\\s+");
 		columns = Integer.parseInt(xy[0]);
