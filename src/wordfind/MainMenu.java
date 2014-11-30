@@ -41,11 +41,29 @@ public class MainMenu {
 					System.out.println(entries.get(i).getWord());
 				}
 				break;
-				
+
 			case "solveFrom":
-				// TODO
+				System.out.println("Enter x coordinate (from 0 to "
+						+ (brd.getColumns() - 1) + "):");
+				int x = reader.nextInt();
+				System.out.println("Enter y coordinate(from 0 to "
+						+ (brd.getRows() - 1) + "):");
+				int y = reader.nextInt();
+				if (x < 0 || x > brd.getColumns() - 1 || y < 0
+						|| y > brd.getRows() - 1) {
+					System.out.println("Invalid Coordinates.");
+					break;
+				}
+				int count = 0;
+				while (count < 20) {
+					if (entries.get(count).getPath().get(0)
+							.equals(new Coordinates(brd.getRows() - y, x))) {
+						System.out.println(entries.get(count).getWord());
+						count++;
+					}
+				}
 				break;
-				
+
 			case "next":
 				bottomLimit += 20;
 				showLimit += 20;
@@ -55,7 +73,7 @@ public class MainMenu {
 					System.out.println(entries.get(i).getWord());
 				}
 				break;
-				
+
 			case "back":
 				if (!(bottomLimit >= 20 && showLimit >= 20)) {
 					System.out.println("Already showing first 20 words.");
@@ -86,7 +104,7 @@ public class MainMenu {
 		System.out
 				.println("help - displays this help menu.\n"
 						+ "solve - rebuild board from file and solve again.\n"
-						+ "solveFrom - show solutions from the given coordinate.\n"
+						+ "solveFrom - show solutions from the given coordinate. Shows only 20 entries.\n"
 						+ "next - display next 20 solutions.\n"
 						+ "back - display last 20 solutions.\n"
 						+ "analyzeBestReach - show best words that allow for maximum distance gain towards \n\t\t   opponent's base.\n"
