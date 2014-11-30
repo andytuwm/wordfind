@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.regex.Pattern;
 
 public class Board {
@@ -32,6 +33,13 @@ public class Board {
 				if (Character.isUpperCase(getChar(coord)))
 					startPoints.add(coord);
 			}
+		}
+
+		// Convert all letters in boardList to lower case for ease of processing
+		// once start points have been found.
+		ListIterator<String> iterator = boardList.listIterator();
+		while (iterator.hasNext()) {
+			iterator.set(iterator.next().toLowerCase());
 		}
 
 		for (Coordinates start : startPoints) {
@@ -177,7 +185,7 @@ public class Board {
 		if (p.getRow() >= rows || p.getColumn() >= columns)
 			return '*';
 		char[] chars = boardList.get(p.getRow()).toCharArray();
-		return chars[Character.toLowerCase(p.getColumn())];
+		return chars[p.getColumn()];
 	}
 
 }
