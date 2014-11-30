@@ -15,7 +15,8 @@ import comparators.LengthComparator;
 public class Board {
 
 	private int rows, columns;
-	List<String> boardList;
+	private List<String> boardList;
+	private boolean topBase = false;
 
 	public Board() {
 		boardList = new ArrayList<String>();
@@ -37,6 +38,11 @@ public class Board {
 		List<Coordinates> startPoints = new ArrayList<>();
 
 		makeBoard(fileIn);
+
+		// Check whether if your base is at the top or not by checking the
+		// corner of the board's case.
+		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+			topBase = true;
 
 		// Get all start points (Upper Case Letters).
 		for (int i = 0; i < rows; i++) {
@@ -92,7 +98,7 @@ public class Board {
 				validWord += getChar(coord);
 			}
 			// System.out.println(validWord);
-			entries.add(new Entry(validWord, path));
+			entries.add(new Entry(validWord, path, topBase, rows, columns));
 		}
 
 		// The following section adds all valid neighbours of the point pos to a
