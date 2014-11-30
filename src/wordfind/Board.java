@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.regex.Pattern;
 
+import comparators.LengthComparator;
+
 public class Board {
 
 	private int rows, columns;
@@ -49,7 +51,7 @@ public class Board {
 			match(rootDict, start, path, entries);
 		}
 
-		Collections.sort(entries, new EntryComparator());
+		Collections.sort(entries, new LengthComparator());
 
 		return entries;
 	}
