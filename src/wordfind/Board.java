@@ -36,11 +36,11 @@ public class Board {
 	 * @return a sorted list of valid words, by length.
 	 * @throws IOException
 	 */
-	public List<Entry> solveBoard(Dictionary rootDict, String fileIn, Comparator<Entry> comparator)
-			throws IOException {
+	public List<Entry> solveBoard(Dictionary rootDict, String fileIn,
+			Comparator<Entry> comparator) throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
 		startPoints.clear();
-		
+
 		makeBoard(fileIn);
 
 		// Check whether if your base is at the top or not by checking the
@@ -56,9 +56,9 @@ public class Board {
 					startPoints.add(coord);
 			}
 		}
-		
+
 		startCopy = new ArrayList<Coordinates>(startPoints);
-		
+
 		// Convert all letters in boardList to lower case for ease of processing
 		// once start points have been found.
 		ListIterator<String> iterator = boardList.listIterator();
@@ -72,15 +72,73 @@ public class Board {
 			match(rootDict, start, path, entries, 0);
 		}
 
-		sortEntries(entries,comparator);
+		sortEntries(entries, comparator);
 
 		return entries;
 	}
 
-	public void sortEntries ( List<Entry> le, Comparator<Entry> c){
+	/**
+	 * Solve the board and find potential moves to make.
+	 * 
+	 * @param rootDict
+	 *            pass the built dictionary tree here.
+	 * @param fileIn
+	 *            pass the text file of the board.
+	 * @return a sorted list of valid words, by length.
+	 * @throws IOException
+	 */
+	public List<Entry> solveEntireBoard(Dictionary rootDict, String fileIn,
+			Comparator<Entry> comparator) throws IOException {
+		List<Entry> entries = new ArrayList<Entry>();
+		startPoints.clear();
+
+		makeBoard(fileIn);
+
+		// Check whether if your base is at the top or not by checking the
+		// corner of the board's case.
+		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+			topBase = true;
+
+		// Get most start points.
+		for (int i = 2; i < rows - 2; i++) {
+			for (int j = 0; j < columns; j++) {
+				Coordinates coord = new Coordinates(i, j);
+				startPoints.add(coord);
+			}
+		}
+
+		startCopy = new ArrayList<Coordinates>(startPoints);
+
+		// Convert all letters in boardList to lower case for ease of processing
+		// once start points have been found.
+		ListIterator<String> iterator = boardList.listIterator();
+		while (iterator.hasNext()) {
+			iterator.set(iterator.next().toLowerCase());
+		}
+
+		for (Coordinates start : startPoints) {
+			List<Coordinates> path = new ArrayList<Coordinates>();
+
+			match(rootDict, start, path, entries, 0);
+		}
+
+		sortEntries(entries, comparator);
+
+		return entries;
+	}
+
+	/**
+	 * Sorting method to allow user to choose the comparator to use
+	 * 
+	 * @param le
+	 *            the list of entries
+	 * @param c
+	 *            the comparator
+	 */
+	public void sortEntries(List<Entry> le, Comparator<Entry> c) {
 		Collections.sort(le, c);
 	}
-	
+
 	/**
 	 * Finds all available words from a given point.
 	 * 

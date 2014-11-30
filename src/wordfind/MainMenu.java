@@ -2,6 +2,7 @@ package wordfind;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -131,6 +132,25 @@ public class MainMenu {
 							+ "Max Increase: " + entries.get(i).getMaxIncrease());
 				}
 				break;
+			
+			case "analyzewin":
+				bottomLimit = 0;
+				showLimit = 20;
+				entries = brd.solveEntireBoard(dict, boardFile,
+						new LengthComparator());
+				
+				Iterator<Entry> itr = entries.iterator();
+				while (itr.hasNext()){
+					Entry ent = itr.next();
+					if(!ent.isWin())
+						itr.remove();
+				}
+				System.out.println("Showing " + bottomLimit + " to "
+						+ showLimit + " of " + entries.size() + " words.");
+				for (int i = bottomLimit; i < showLimit; i++) {
+					System.out.println(entries.get(i).getWord());
+				}
+				break;
 				
 			default:
 				System.out.println("Invalid Command, try again.");
@@ -150,6 +170,7 @@ public class MainMenu {
 						+ "back - display last 20 solutions.\n"
 						+ "analyzeBestReach - show best words that allow for maximum distance gain towards \n\t\t   opponent's base.\n"
 						+ "analyzePosition - show words closest to opponent's base.\n"
+						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
 						+ "analyzeOpponent - show the most dangerous tiles in opponent's possession with \n\t\t  their longest words.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
 						+ "quit - end program.");

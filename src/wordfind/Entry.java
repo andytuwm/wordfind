@@ -25,8 +25,16 @@ public class Entry {
 			maxIncrease = path.get(path.size() - 1).getRow()
 					- path.get(0).getRow();
 			maxVert = path.get(path.size() - 1).getRow();
+			for(Coordinates coords: path) {
+				if ( coords.getRow() > maxVert)
+					maxVert = coords.getRow();
+			}
 		} else {
 			maxVert = rows - path.get(path.size() - 1).getRow();
+			for(Coordinates coords: path) {
+				if ( (rows - coords.getRow()) > maxVert)
+					maxVert = (rows - coords.getRow());
+			}
 			maxIncrease = 0 - (path.get(path.size() - 1).getRow() - path.get(0)
 					.getRow());
 		}
@@ -42,6 +50,10 @@ public class Entry {
 	
 	public int getMaxIncrease() {
 		return maxIncrease;
+	}
+	
+	public boolean isWin() {
+		return maxVert == 13;
 	}
 	
 	public List<Coordinates> getPath(){
