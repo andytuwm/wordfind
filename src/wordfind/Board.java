@@ -100,7 +100,7 @@ public class Board {
 			topBase = true;
 
 		// Get most start points.
-		for (int i = 2; i < rows - 2; i++) {
+		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				Coordinates coord = new Coordinates(i, j);
 				startPoints.add(coord);
@@ -256,6 +256,7 @@ public class Board {
 		String[] xy = line.split("\\s+");
 		columns = Integer.parseInt(xy[0]);
 		rows = Integer.parseInt(xy[1]);
+		boardList.clear();
 		int i = 0;
 
 		while ((line = br.readLine()) != null) {
