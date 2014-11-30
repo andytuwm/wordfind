@@ -46,7 +46,7 @@ public class Board {
 
 		for (Coordinates start : startPoints) {
 			List<Coordinates> path = new ArrayList<Coordinates>();
-			path.add(start);
+			//path.add(start);
 
 			match(rootDict, start, path, entries);
 		}
