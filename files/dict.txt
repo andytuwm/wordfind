@@ -30149,7 +30149,8 @@ gassing
 gassy
 gastric
 gastritis
-gastritis's
+gastrin
+gastrins
 gastrointestinal
 gastronomic
 gastronomical
