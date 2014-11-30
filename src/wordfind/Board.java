@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -35,7 +36,7 @@ public class Board {
 	 * @return a sorted list of valid words, by length.
 	 * @throws IOException
 	 */
-	public List<Entry> solveBoard(Dictionary rootDict, String fileIn)
+	public List<Entry> solveBoard(Dictionary rootDict, String fileIn, Comparator<Entry> comparator)
 			throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
 
@@ -70,11 +71,15 @@ public class Board {
 			match(rootDict, start, path, entries, 0);
 		}
 
-		Collections.sort(entries, new LengthComparator());
+		sortEntries(entries,comparator);
 
 		return entries;
 	}
 
+	public void sortEntries ( List<Entry> le, Comparator<Entry> c){
+		Collections.sort(le, c);
+	}
+	
 	/**
 	 * Finds all available words from a given point.
 	 * 

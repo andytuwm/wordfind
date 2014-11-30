@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import comparators.LengthComparator;
+import comparators.PositionComparator;
+
 public class MainMenu {
 
 	public static void main(String[] args) throws IOException {
@@ -35,7 +38,8 @@ public class MainMenu {
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
-				entries = brd.solveBoard(dict, boardFile);
+				entries = brd.solveBoard(dict, boardFile,
+						new LengthComparator());
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
@@ -43,37 +47,23 @@ public class MainMenu {
 				}
 				break;
 
-			/*case "solvefrom":
-				System.out.println("Enter x coordinate (from 0 to "
-						+ (brd.getColumns() - 1) + "):");
-				int x = reader.nextInt();
-				System.out.println("Enter y coordinate(from 0 to "
-						+ (brd.getRows() - 1) + "):");
-				int y = reader.nextInt();
-				Coordinates c = new Coordinates(brd.getRows() - y, x);
-				if (x < 0 || x > brd.getColumns() - 1 || y < 0
-						|| y > brd.getRows() - 1) {
-					System.out.println("Invalid Coordinates.");
-					break;
-				}
-				for (Coordinates coord : brd.getStarts()) {
-					boolean check = false;
-					if (!coord.equals(c)) {
-						check = true;
-					}
-					if (check) {
-						System.out.println("Invalid Coordinates.");
-						break;
-					}
-				}
-				int occurences = 0;
-				for (int count = 0; occurences < 20; count++) {
-					if (entries.get(count).getPath().get(0).equals(c)) {
-						System.out.println(entries.get(count).getWord());
-						occurences++;
-					}
-				}
-				break;*/
+			/*
+			 * case "solvefrom":
+			 * System.out.println("Enter x coordinate (from 0 to " +
+			 * (brd.getColumns() - 1) + "):"); int x = reader.nextInt();
+			 * System.out.println("Enter y coordinate(from 0 to " +
+			 * (brd.getRows() - 1) + "):"); int y = reader.nextInt();
+			 * Coordinates c = new Coordinates(brd.getRows() - y, x); if (x < 0
+			 * || x > brd.getColumns() - 1 || y < 0 || y > brd.getRows() - 1) {
+			 * System.out.println("Invalid Coordinates."); break; } for
+			 * (Coordinates coord : brd.getStarts()) { boolean check = false; if
+			 * (!coord.equals(c)) { check = true; } if (check) {
+			 * System.out.println("Invalid Coordinates."); break; } } int
+			 * occurences = 0; for (int count = 0; occurences < 20; count++) {
+			 * if (entries.get(count).getPath().get(0).equals(c)) {
+			 * System.out.println(entries.get(count).getWord()); occurences++; }
+			 * } break;
+			 */
 
 			case "next":
 				bottomLimit += 20;
@@ -108,9 +98,23 @@ public class MainMenu {
 				System.out
 						.println("Include .txt file extension and type solve again after setting board.");
 				boardFile = "files/" + reader.next();
+				System.out.println("Board set successfully to " + boardFile);
 				break;
 
-			case "analyzePosition":
+			case "analyzeposition":
+				bottomLimit = 0;
+				showLimit = 20;
+				dict.buildDictionary("files/dict.txt");
+				entries = brd.solveBoard(dict, boardFile,
+						new PositionComparator());
+				System.out.println("Showing " + bottomLimit + " to "
+						+ showLimit + " of " + entries.size() + " words.");
+				for (int i = bottomLimit; i < showLimit; i++) {
+					if(entries.get(i).getWord().length() < 4)
+						continue;
+					System.out.println(entries.get(i).getWord() + "\t"
+							+ "Position: " + entries.get(i).getMaxVert());
+				}
 				break;
 			default:
 				System.out.println("Invalid Command, try again.");
