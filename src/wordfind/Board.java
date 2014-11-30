@@ -88,8 +88,7 @@ public class Board {
 	 * @return a sorted list of valid words, by length.
 	 * @throws IOException
 	 */
-	public List<Entry> solveEntireBoard(Dictionary rootDict, String fileIn,
-			Comparator<Entry> comparator) throws IOException {
+	public List<Entry> solveEntireBoard(Dictionary rootDict, String fileIn) throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
 		startPoints.clear();
 
@@ -123,8 +122,6 @@ public class Board {
 			match(rootDict, start, path, entries, 0);
 		}
 
-		sortEntries(entries, comparator);
-
 		return entries;
 	}
 
@@ -136,7 +133,7 @@ public class Board {
 	 * @param c
 	 *            the comparator
 	 */
-	public void sortEntries(List<Entry> le, Comparator<Entry> c) {
+	public static void sortEntries(List<Entry> le, Comparator<Entry> c) {
 		Collections.sort(le, c);
 	}
 
@@ -177,7 +174,7 @@ public class Board {
 		// If input pos has these four sides on the board, add them to the list
 		// of neighbours.
 		// A check is added here because on first run, the only neighbour is the
-		// actual coordinatae itself. During recursion however we would add all
+		// actual coordinates itself. During recursion however we would add all
 		// adjacent points to begin with.
 		if (check == 0)
 			neighbours.add(pos);

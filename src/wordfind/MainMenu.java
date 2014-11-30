@@ -141,8 +141,8 @@ public class MainMenu {
 			case "analyzewin":
 				bottomLimit = 0;
 				showLimit = 20;
-				entries = brd.solveEntireBoard(dict, boardFile,
-						new OffsetComparator());
+				entries = brd.solveEntireBoard(dict, boardFile);
+				Board.sortEntries(entries, new OffsetComparator());
 
 				Iterator<Entry> itr = entries.iterator();
 				while (itr.hasNext()) {
@@ -160,6 +160,12 @@ public class MainMenu {
 				}
 				break;
 
+			case "analyzeopponent":
+				
+				for( Entry e : entries)
+				
+				break;
+				
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
