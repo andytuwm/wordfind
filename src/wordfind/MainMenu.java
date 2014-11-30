@@ -17,6 +17,7 @@ public class MainMenu {
 		int bottomLimit = 0;
 		int showLimit = 20;
 		boolean quit = false;
+		String boardFile = "files/board.txt";
 
 		System.out.println("Wordfind: by Andy Tu");
 		System.out.println("A solver for the mobile game Wordbase.");
@@ -34,7 +35,7 @@ public class MainMenu {
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
-				entries = brd.solveBoard(dict, "files/board.txt");
+				entries = brd.solveBoard(dict, boardFile);
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
@@ -91,6 +92,11 @@ public class MainMenu {
 			case "quit":
 				quit = true;
 				break;
+			case "setBoard":
+				System.out.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
+				System.out.println("Include .txt file extension and type solve again after setting board.");
+				boardFile = "files/" + reader.next();
+
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
