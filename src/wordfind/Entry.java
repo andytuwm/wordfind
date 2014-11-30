@@ -46,6 +46,10 @@ public class Entry {
 		return word;
 	}
 
+	public int getOffset() {
+		return offset;
+	}
+
 	public int getMaxVert() {
 		return maxVert;
 	}
