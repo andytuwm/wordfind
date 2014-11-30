@@ -40,8 +40,8 @@ public class Board {
 
 			match(rootDict, start, path, entries);
 		}
-		
-		Collections.sort(entries,new EntryComparator());
+
+		Collections.sort(entries, new EntryComparator());
 
 		return entries;
 	}
@@ -67,11 +67,12 @@ public class Board {
 		// Check if there's a stop node within the current dictionary node. If
 		// there is, the current traversed path down the tree is a valid word
 		// and should be added to the list of valid words.
-		if (dict.getList().get(26).getLetter() == '*') {
+		if (dict.hasChar('*')) {
 			String validWord = "";
 			for (Coordinates coord : path) {
 				validWord += getChar(coord);
 			}
+			System.out.println(validWord);
 			entries.add(new Entry(validWord, path));
 		}
 
@@ -106,20 +107,16 @@ public class Board {
 
 		// Remove all coordinates in neighbours if the coordinate has already
 		// been traversed in path, or is not contained in the dictionary tree.
+
+		// Check in path.
+		neighbours.removeAll(path);
+		// Check in dictionary tree.
 		Iterator<Coordinates> itr = neighbours.iterator();
 		while (itr.hasNext()) {
 			Coordinates coord = itr.next();
-
-			// Check in path.
-			for (Coordinates itrPath : path) {
-				if (coord.equals(itrPath)) {
-					itr.remove();
-				}
-			}
-
-			// Check in dictionary tree.
-			if (!dict.hasChar(getChar(coord)))
+			if (!dict.hasChar(getChar(coord))) {
 				itr.remove();
+			}
 		}
 
 		// use getSubTree to traverse into dictionary tree.
@@ -174,13 +171,13 @@ public class Board {
 	 * 
 	 * @param p
 	 *            the input coordinate
-	 * @return the char at the coordinate on the board grid.
+	 * @return the char at the coordinate on the board grid; 0 if off grid.
 	 */
 	public char getChar(Coordinates p) {
 		if (p.getRow() >= rows || p.getColumn() >= columns)
-			return '0';
+			return '*';
 		char[] chars = boardList.get(p.getRow()).toCharArray();
-		return chars[p.getColumn()];
+		return chars[Character.toLowerCase(p.getColumn())];
 	}
 
 }
