@@ -1,7 +1,11 @@
 Wordfind by Andy Tu
 ========
 A word solver for the mobile game [Wordbase](https://play.google.com/store/apps/details?id=com.wordbaseapp&hl=en).
-===============================================================================
+========
+
+Download: 
+========
+Download the zip file from the [release](https://github.com/andytuwm/wordfind/releases) page. Make sure both the folder and .exe file are unzipped together. If the .exe file does not work for whatever reason, try using `java -jar wordfind.jar` in the command prompt from the same directory.
 
 Commands Available:
 
