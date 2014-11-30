@@ -28,10 +28,13 @@ public class WordTest {
 		Board brd = new Board();
 		
 		entries = brd.solveBoard(dictionary, "files/board.txt");
+
+		for ( Entry e : entries){
+			System.out.println(e.getWord());
+		}
 		
-		System.out.println(entries);
 		System.out.println(entries.size() + " words possible");
-		System.out.println("Dictinoary has " + dictionary.getSize() + " words");
+		System.out.println("Dictionary has " + dictionary.getSize() + " words");
 	}
 	
 }
