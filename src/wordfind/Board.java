@@ -39,7 +39,8 @@ public class Board {
 	public List<Entry> solveBoard(Dictionary rootDict, String fileIn, Comparator<Entry> comparator)
 			throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
-
+		startPoints.clear();
+		
 		makeBoard(fileIn);
 
 		// Check whether if your base is at the top or not by checking the

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import comparators.IncreaseComparator;
 import comparators.LengthComparator;
 import comparators.PositionComparator;
 
@@ -14,7 +15,7 @@ public class MainMenu {
 
 		Scanner reader = new Scanner(System.in);
 		String ans;
-		List<Entry> entries = new ArrayList<Entry>();
+		List<Entry> entries = new ArrayList<Entry>();;
 		Dictionary dict = new Dictionary();
 		Board brd = new Board();
 		int bottomLimit = 0;
@@ -26,6 +27,7 @@ public class MainMenu {
 		System.out.println("A solver for the mobile game Wordbase.");
 		dispHelp();
 		do {
+			
 			ans = reader.next();
 
 			switch (ans.toLowerCase()) {
@@ -92,6 +94,7 @@ public class MainMenu {
 			case "quit":
 				quit = true;
 				break;
+				
 			case "setboard":
 				System.out
 						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
@@ -104,7 +107,6 @@ public class MainMenu {
 			case "analyzeposition":
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new PositionComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -116,6 +118,20 @@ public class MainMenu {
 							+ "Position: " + entries.get(i).getMaxVert());
 				}
 				break;
+				
+			case "analyzebestreach":
+				bottomLimit = 0;
+				showLimit = 20;
+				entries = brd.solveBoard(dict, boardFile,
+						new IncreaseComparator());
+				System.out.println("Showing " + bottomLimit + " to "
+						+ showLimit + " of " + entries.size() + " words.");
+				for (int i = bottomLimit; i < showLimit; i++) {
+					System.out.println(entries.get(i).getWord() + "\t\t"
+							+ "Max Increase: " + entries.get(i).getMaxIncrease());
+				}
+				break;
+				
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
