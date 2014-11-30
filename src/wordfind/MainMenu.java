@@ -1,5 +1,6 @@
 package wordfind;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,19 +19,23 @@ public class MainMenu {
 		Scanner reader = new Scanner(System.in);
 		String ans;
 		List<Entry> entries = new ArrayList<Entry>();
-		;
 		Dictionary dict = new Dictionary();
 		Board brd = new Board();
 		int bottomLimit = 0;
 		int showLimit = 20;
 		boolean quit = false;
 		String boardFile = "files/board.txt";
+		File file = new File(boardFile);
 
 		System.out.println("Wordfind: by Andy Tu");
 		System.out.println("A solver for the mobile game Wordbase.");
 		dispHelp();
-		System.out.println("\nBoard initialized to " + boardFile
-				+ "\nPlease enter a command:");
+		if ( file.exists()) {
+			System.out.println("\nBoard initialized to " + boardFile + "\nPlease enter a command:");
+		} else {
+			System.out.println("Board file not found. Exiting...");
+			return;
+		}
 		do {
 
 			ans = reader.next();
@@ -87,8 +92,15 @@ public class MainMenu {
 						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
 				System.out
 						.println("Include .txt file extension and type solve again after setting board.");
+				String s = boardFile;
 				boardFile = "files/" + reader.next();
-				System.out.println("Board set successfully to " + boardFile);
+				file = new File(boardFile);
+				if(file.exists()){
+					System.out.println("Board set successfully to " + boardFile);
+				} else {
+					System.out.println("Board not found. Please try again.");
+					boardFile = s;
+				}
 				break;
 
 			case "analyzeposition":
