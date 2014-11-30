@@ -1,7 +1,6 @@
 Wordfind by Andy Tu
 ========
 A word solver for the mobile game [Wordbase](https://play.google.com/store/apps/details?id=com.wordbaseapp&hl=en).
-========
 
 Download: 
 ========
