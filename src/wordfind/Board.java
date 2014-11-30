@@ -88,7 +88,8 @@ public class Board {
 	 * @return a sorted list of valid words, by length.
 	 * @throws IOException
 	 */
-	public List<Entry> solveEntireBoard(Dictionary rootDict, String fileIn) throws IOException {
+	public List<Entry> solveEntireBoard(Dictionary rootDict, String fileIn,
+			boolean findAllyWords) throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
 		startPoints.clear();
 
@@ -96,8 +97,15 @@ public class Board {
 
 		// Check whether if your base is at the top or not by checking the
 		// corner of the board's case.
-		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
-			topBase = true;
+		if (findAllyWords) {
+			if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+				topBase = true;
+		} else if (!findAllyWords) {
+			if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+				topBase = false;
+			else
+				topBase = true;
+		}
 
 		// Get most start points.
 		for (int i = 0; i < rows; i++) {

@@ -144,7 +144,7 @@ public class MainMenu {
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
-				entries = brd.solveEntireBoard(dict, boardFile);
+				entries = brd.solveEntireBoard(dict, boardFile,true);
 				Board.sortEntries(entries, new OffsetComparator());
 
 				Iterator<Entry> itr = entries.iterator();
@@ -164,9 +164,26 @@ public class MainMenu {
 				break;
 
 			case "analyzeopponent":
+				bottomLimit = 0;
+				showLimit = 20;
+				dict.buildDictionary("files/dict.txt");
+				entries = brd.solveEntireBoard(dict, boardFile,false);
+				Board.sortEntries(entries, new OffsetComparator());
 				
-				for( Entry e : entries)
-				
+				Iterator<Entry> it = entries.iterator();
+				while (it.hasNext()) {
+					Entry ent = it.next();
+					if (!ent.isWin())
+						it.remove();
+				}
+				System.out.println("Showing " + bottomLimit + " to "
+						+ showLimit + " of " + entries.size() + " words.");
+				for (int i = bottomLimit; i < showLimit; i++) {
+					System.out
+							.println(entries.get(i).getWord()
+									+ "\t\tStarting Row: "
+									+ entries.get(i).getOffset());
+				}
 				break;
 				
 			default:

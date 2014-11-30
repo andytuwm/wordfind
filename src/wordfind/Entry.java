@@ -29,7 +29,7 @@ public class Entry {
 				if (coords.getRow() + 1 > maxVert)
 					maxVert = coords.getRow() + 1;
 			}
-			offset = path.get(0).getRow();
+			offset = path.get(0).getRow()+1;
 		} else {
 			maxVert = rows - path.get(path.size() - 1).getRow();
 			for (Coordinates coords : path) {
