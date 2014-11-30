@@ -29,9 +29,10 @@ public class MainMenu {
 
 		System.out.println("Wordfind: by Andy Tu");
 		System.out.println("A solver for the mobile game Wordbase.");
+		System.out.println("===============================================================================");
 		dispHelp();
 		if ( file.exists()) {
-			System.out.println("\nBoard initialized to " + boardFile + "\nPlease enter a command:");
+			System.out.println("Board initialized to " + boardFile + "\nPlease enter a command:");
 		} else {
 			System.out.println("Board file not found. Exiting...");
 			return;
@@ -200,6 +201,8 @@ public class MainMenu {
 						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
 						+ "analyzeOpponent - show words the opponent can potentially win with and their\n\t\t  respective rows.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
-						+ "quit - end program.");
+						+ "quit - end program.\n===============================================================================\n"
+						+ "Note: Rows are always counted from the base (Yours or the Opponent's).\n      Base row = 1\n"
+						+ "===============================================================================");
 	}
 }
