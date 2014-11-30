@@ -24,10 +24,10 @@ public class Entry {
 		if (topBase) {
 			maxIncrease = path.get(path.size() - 1).getRow()
 					- path.get(0).getRow();
-			maxVert = path.get(path.size() - 1).getRow();
+			maxVert = path.get(path.size() - 1).getRow() + 1;
 			for (Coordinates coords : path) {
-				if (coords.getRow() > maxVert)
-					maxVert = coords.getRow();
+				if (coords.getRow() + 1 > maxVert)
+					maxVert = coords.getRow() + 1;
 			}
 			offset = path.get(0).getRow();
 		} else {
