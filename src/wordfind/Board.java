@@ -82,7 +82,7 @@ public class Board {
 			for (Coordinates coord : path) {
 				validWord += getChar(coord);
 			}
-			System.out.println(validWord);
+			//System.out.println(validWord);
 			entries.add(new Entry(validWord, path));
 		}
 
