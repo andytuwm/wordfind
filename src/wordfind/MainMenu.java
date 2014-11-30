@@ -112,6 +112,7 @@ public class MainMenu {
 			case "analyzeposition":
 				bottomLimit = 0;
 				showLimit = 20;
+				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new PositionComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -127,6 +128,7 @@ public class MainMenu {
 			case "analyzebestreach":
 				bottomLimit = 0;
 				showLimit = 20;
+				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new IncreaseComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -141,6 +143,7 @@ public class MainMenu {
 			case "analyzewin":
 				bottomLimit = 0;
 				showLimit = 20;
+				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveEntireBoard(dict, boardFile);
 				Board.sortEntries(entries, new OffsetComparator());
 
