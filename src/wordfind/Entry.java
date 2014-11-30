@@ -43,5 +43,9 @@ public class Entry {
 	public int getMaxIncrease() {
 		return maxIncrease;
 	}
+	
+	public List<Coordinates> getPath(){
+		return path;
+	}
 
 }
