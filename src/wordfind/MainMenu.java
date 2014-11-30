@@ -17,7 +17,7 @@ public class MainMenu {
 	public static void main(String[] args) throws IOException {
 
 		Scanner reader = new Scanner(System.in);
-		String ans;
+		String ans, prevAns = "";
 		List<Entry> entries = new ArrayList<Entry>();
 		Dictionary dict = new Dictionary();
 		Board brd = new Board();
@@ -29,25 +29,28 @@ public class MainMenu {
 
 		System.out.println("Wordfind: by Andy Tu");
 		System.out.println("A solver for the mobile game Wordbase.");
-		System.out.println("===============================================================================");
+		System.out
+				.println("===============================================================================");
 		dispHelp();
-		if ( file.exists()) {
-			System.out.println("Board initialized to " + boardFile + "\nPlease enter a command:");
+		if (file.exists()) {
+			System.out.println("Board initialized to " + boardFile
+					+ "\nPlease enter a command:");
 		} else {
 			System.out.println("Board file not found. Exiting...");
 			return;
 		}
 		do {
 
-			ans = reader.next();
+			ans = reader.next().toLowerCase();
 
-			switch (ans.toLowerCase()) {
+			switch (ans) {
 
 			case "help":
 				dispHelp();
 				break;
 
 			case "solve":
+				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
@@ -56,7 +59,8 @@ public class MainMenu {
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
-					System.out.println(entries.get(i).getWord() + "\tIncrease: " + entries.get(i).getMaxIncrease());
+					System.out.println(entries.get(i).getWord()
+							+ "\tIncrease: " + entries.get(i).getMaxIncrease());
 				}
 				break;
 
@@ -65,9 +69,37 @@ public class MainMenu {
 				showLimit += 20;
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
-				for (int i = bottomLimit; i < showLimit; i++) {
-					System.out.println(entries.get(i).getWord());
+				if (prevAns.equals("solve")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				} else if (prevAns.equals("analyzeposition")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						if (entries.get(i).getWord().length() < 4)
+							continue;
+						System.out.println(entries.get(i).getWord() + "\t"
+								+ "Position: " + entries.get(i).getMaxVert());
+					}
+				} else if (prevAns.equals("analyzebestreach")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord() + "\t\t"
+								+ "Max Increase: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				} else if (prevAns.equals("analyzewin")
+						|| prevAns.equals("analyzeopponent")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\t\tStarting Row: "
+								+ entries.get(i).getOffset());
+					}
+				} else {
+					System.out
+							.println("Please solve or analyze the board before sending this command.");
 				}
+
 				break;
 
 			case "back":
@@ -89,6 +121,7 @@ public class MainMenu {
 				break;
 
 			case "setboard":
+				prevAns = ans;
 				System.out
 						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
 				System.out
@@ -96,8 +129,9 @@ public class MainMenu {
 				String s = boardFile;
 				boardFile = "files/" + reader.next();
 				file = new File(boardFile);
-				if(file.exists()){
-					System.out.println("Board set successfully to " + boardFile);
+				if (file.exists()) {
+					System.out
+							.println("Board set successfully to " + boardFile);
 				} else {
 					System.out.println("Board not found. Please try again.");
 					boardFile = s;
@@ -105,6 +139,7 @@ public class MainMenu {
 				break;
 
 			case "analyzeposition":
+				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
@@ -121,6 +156,7 @@ public class MainMenu {
 				break;
 
 			case "analyzebestreach":
+				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
@@ -136,10 +172,11 @@ public class MainMenu {
 				break;
 
 			case "analyzewin":
+				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
-				entries = brd.solveEntireBoard(dict, boardFile,true);
+				entries = brd.solveEntireBoard(dict, boardFile, true);
 				Board.sortEntries(entries, new OffsetComparator());
 
 				Iterator<Entry> itr = entries.iterator();
@@ -159,12 +196,13 @@ public class MainMenu {
 				break;
 
 			case "analyzeopponent":
+				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
 				dict.buildDictionary("files/dict.txt");
-				entries = brd.solveEntireBoard(dict, boardFile,false);
+				entries = brd.solveEntireBoard(dict, boardFile, false);
 				Board.sortEntries(entries, new OffsetComparator());
-				
+
 				Iterator<Entry> it = entries.iterator();
 				while (it.hasNext()) {
 					Entry ent = it.next();
@@ -180,7 +218,7 @@ public class MainMenu {
 									+ entries.get(i).getOffset());
 				}
 				break;
-				
+
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
