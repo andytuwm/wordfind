@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.regex.Pattern;
 
-import comparators.LengthComparator;
-
 public class Board {
 
 	private int rows, columns;
@@ -85,6 +83,9 @@ public class Board {
 	 *            pass the built dictionary tree here.
 	 * @param fileIn
 	 *            pass the text file of the board.
+	 * @param findAllyWords
+	 *            a check used to see if we're analyzing opponent or our own
+	 *            board.
 	 * @return a sorted list of valid words, by length.
 	 * @throws IOException
 	 */
@@ -97,14 +98,12 @@ public class Board {
 
 		// Check whether if your base is at the top or not by checking the
 		// corner of the board's case.
-		if (findAllyWords) {
-			if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
-				topBase = true;
-		} else if (!findAllyWords) {
-			if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
-				topBase = false;
-			else
-				topBase = true;
+
+		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+			topBase = true;
+
+		if (!findAllyWords) {
+			baseReverse();
 		}
 
 		// Get most start points.
@@ -304,6 +303,10 @@ public class Board {
 
 	public List<Coordinates> getStarts() {
 		return startCopy;
+	}
+
+	public void baseReverse() {
+		topBase = !topBase;
 	}
 
 }

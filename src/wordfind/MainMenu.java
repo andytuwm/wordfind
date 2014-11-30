@@ -37,12 +37,13 @@ public class MainMenu {
 					+ "\nPlease enter a command:");
 		} else {
 			System.out.println("Board file not found. Exiting...");
+			reader.close();
 			return;
 		}
 		do {
-
+			
 			ans = reader.next().toLowerCase();
-
+			
 			switch (ans) {
 
 			case "help":
@@ -243,6 +244,7 @@ public class MainMenu {
 									+ "\t\tStarting Row: "
 									+ entries.get(i).getOffset());
 				}
+				brd.baseReverse();
 				break;
 
 			default:
