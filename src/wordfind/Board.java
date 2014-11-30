@@ -21,6 +21,16 @@ public class Board {
 		boardList = new ArrayList<String>();
 	}
 
+	/**
+	 * Solve the board and find potential moves to make.
+	 * 
+	 * @param rootDict
+	 *            pass the built dictionary tree here.
+	 * @param fileIn
+	 *            pass the text file of the board.
+	 * @return a sorted list of valid words, by length.
+	 * @throws IOException
+	 */
 	public List<Entry> solveBoard(Dictionary rootDict, String fileIn)
 			throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
