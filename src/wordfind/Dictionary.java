@@ -28,7 +28,6 @@ public class Dictionary {
 		// last element of root node should not be null, but should not be '*'
 		// either. Arbitrary letter is set to avoid NullPointerExceptions when
 		// detecting whether there is a stop node or not.
-		dict.set(26, new Dictionary('0'));
 	}
 
 	public Dictionary(char letter) {
@@ -124,7 +123,15 @@ public class Dictionary {
 	 *         otherwise.
 	 */
 	public boolean hasChar(char c) {
-		return dict.get(Character.toLowerCase(c) - 'a') != null;
+
+		if (c == '*' && dict.get(26) != null)
+			return true;
+		
+		int val = Character.toLowerCase(c) - 'a';
+		if ( val < 27 && val >= 0 )
+			return dict.get(val) != null;
+		
+		return false;
 	}
 
 	/**

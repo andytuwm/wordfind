@@ -96,7 +96,7 @@ public class Board {
 			neighbours.add(new Coordinates(pos.getRow(), pos.getColumn() - 1));
 		if (pos.getRow() < rows - 1)
 			neighbours.add(new Coordinates(pos.getRow() + 1, pos.getColumn()));
-		if (pos.getRow() < columns - 1)
+		if (pos.getColumn() < columns - 1)
 			neighbours.add(new Coordinates(pos.getRow(), pos.getColumn() + 1));
 		// If input pos has these four diagonal corners on the board, add thme
 		// to the list of neighbours.
