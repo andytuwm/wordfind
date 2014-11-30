@@ -43,27 +43,37 @@ public class MainMenu {
 				}
 				break;
 
-			case "solveFrom":
+			/*case "solvefrom":
 				System.out.println("Enter x coordinate (from 0 to "
 						+ (brd.getColumns() - 1) + "):");
 				int x = reader.nextInt();
 				System.out.println("Enter y coordinate(from 0 to "
 						+ (brd.getRows() - 1) + "):");
 				int y = reader.nextInt();
+				Coordinates c = new Coordinates(brd.getRows() - y, x);
 				if (x < 0 || x > brd.getColumns() - 1 || y < 0
 						|| y > brd.getRows() - 1) {
 					System.out.println("Invalid Coordinates.");
 					break;
 				}
-				int count = 0;
-				while (count < 20) {
-					if (entries.get(count).getPath().get(0)
-							.equals(new Coordinates(brd.getRows() - y, x))) {
-						System.out.println(entries.get(count).getWord());
-						count++;
+				for (Coordinates coord : brd.getStarts()) {
+					boolean check = false;
+					if (!coord.equals(c)) {
+						check = true;
+					}
+					if (check) {
+						System.out.println("Invalid Coordinates.");
+						break;
 					}
 				}
-				break;
+				int occurences = 0;
+				for (int count = 0; occurences < 20; count++) {
+					if (entries.get(count).getPath().get(0).equals(c)) {
+						System.out.println(entries.get(count).getWord());
+						occurences++;
+					}
+				}
+				break;*/
 
 			case "next":
 				bottomLimit += 20;
@@ -92,11 +102,16 @@ public class MainMenu {
 			case "quit":
 				quit = true;
 				break;
-			case "setBoard":
-				System.out.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
-				System.out.println("Include .txt file extension and type solve again after setting board.");
+			case "setboard":
+				System.out
+						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
+				System.out
+						.println("Include .txt file extension and type solve again after setting board.");
 				boardFile = "files/" + reader.next();
+				break;
 
+			case "analyzePosition":
+				break;
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;

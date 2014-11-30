@@ -17,9 +17,12 @@ public class Board {
 	private int rows, columns;
 	private List<String> boardList;
 	private boolean topBase = false;
+	List<Coordinates> startPoints;
+	List<Coordinates> startCopy;
 
 	public Board() {
 		boardList = new ArrayList<String>();
+		startPoints = new ArrayList<Coordinates>();
 	}
 
 	/**
@@ -35,7 +38,6 @@ public class Board {
 	public List<Entry> solveBoard(Dictionary rootDict, String fileIn)
 			throws IOException {
 		List<Entry> entries = new ArrayList<Entry>();
-		List<Coordinates> startPoints = new ArrayList<>();
 
 		makeBoard(fileIn);
 
@@ -52,7 +54,9 @@ public class Board {
 					startPoints.add(coord);
 			}
 		}
-
+		
+		startCopy = new ArrayList<Coordinates>(startPoints);
+		
 		// Convert all letters in boardList to lower case for ease of processing
 		// once start points have been found.
 		ListIterator<String> iterator = boardList.listIterator();
@@ -219,12 +223,16 @@ public class Board {
 		return chars[p.getColumn()];
 	}
 
-	public int getRows(){
+	public int getRows() {
 		return rows;
 	}
-	
-	public int getColumns(){
+
+	public int getColumns() {
 		return columns;
 	}
-	
+
+	public List<Coordinates> getStarts() {
+		return startCopy;
+	}
+
 }
