@@ -99,7 +99,6 @@ public class MainMenu {
 					System.out
 							.println("Please solve or analyze the board before sending this command.");
 				}
-
 				break;
 
 			case "back":
@@ -111,8 +110,35 @@ public class MainMenu {
 				showLimit -= 20;
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
-				for (int i = bottomLimit; i < showLimit; i++) {
-					System.out.println(entries.get(i).getWord());
+				if (prevAns.equals("solve")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				} else if (prevAns.equals("analyzeposition")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						if (entries.get(i).getWord().length() < 4)
+							continue;
+						System.out.println(entries.get(i).getWord() + "\t"
+								+ "Position: " + entries.get(i).getMaxVert());
+					}
+				} else if (prevAns.equals("analyzebestreach")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord() + "\t\t"
+								+ "Max Increase: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				} else if (prevAns.equals("analyzewin")
+						|| prevAns.equals("analyzeopponent")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\t\tStarting Row: "
+								+ entries.get(i).getOffset());
+					}
+				} else {
+					System.out
+							.println("Please solve or analyze the board before sending this command.");
 				}
 				break;
 
