@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import comparators.IncreaseComparator;
 import comparators.LengthComparator;
+import comparators.OffsetComparator;
 import comparators.PositionComparator;
 
 public class MainMenu {
@@ -16,7 +17,8 @@ public class MainMenu {
 
 		Scanner reader = new Scanner(System.in);
 		String ans;
-		List<Entry> entries = new ArrayList<Entry>();;
+		List<Entry> entries = new ArrayList<Entry>();
+		;
 		Dictionary dict = new Dictionary();
 		Board brd = new Board();
 		int bottomLimit = 0;
@@ -27,8 +29,10 @@ public class MainMenu {
 		System.out.println("Wordfind: by Andy Tu");
 		System.out.println("A solver for the mobile game Wordbase.");
 		dispHelp();
+		System.out.println("\nBoard initialized to " + boardFile
+				+ "\nPlease enter a command:");
 		do {
-			
+
 			ans = reader.next();
 
 			switch (ans.toLowerCase()) {
@@ -95,7 +99,7 @@ public class MainMenu {
 			case "quit":
 				quit = true;
 				break;
-				
+
 			case "setboard":
 				System.out
 						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
@@ -113,13 +117,13 @@ public class MainMenu {
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
-					if(entries.get(i).getWord().length() < 4)
+					if (entries.get(i).getWord().length() < 4)
 						continue;
 					System.out.println(entries.get(i).getWord() + "\t"
 							+ "Position: " + entries.get(i).getMaxVert());
 				}
 				break;
-				
+
 			case "analyzebestreach":
 				bottomLimit = 0;
 				showLimit = 20;
@@ -129,29 +133,33 @@ public class MainMenu {
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord() + "\t\t"
-							+ "Max Increase: " + entries.get(i).getMaxIncrease());
+							+ "Max Increase: "
+							+ entries.get(i).getMaxIncrease());
 				}
 				break;
-			
+
 			case "analyzewin":
 				bottomLimit = 0;
 				showLimit = 20;
 				entries = brd.solveEntireBoard(dict, boardFile,
-						new LengthComparator());
-				
+						new OffsetComparator());
+
 				Iterator<Entry> itr = entries.iterator();
-				while (itr.hasNext()){
+				while (itr.hasNext()) {
 					Entry ent = itr.next();
-					if(!ent.isWin())
+					if (!ent.isWin())
 						itr.remove();
 				}
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
-					System.out.println(entries.get(i).getWord());
+					System.out
+							.println(entries.get(i).getWord()
+									+ "\t\tStarting Row: "
+									+ entries.get(i).getOffset());
 				}
 				break;
-				
+
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
@@ -175,5 +183,4 @@ public class MainMenu {
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
 						+ "quit - end program.");
 	}
-
 }
