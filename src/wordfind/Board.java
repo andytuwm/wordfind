@@ -46,9 +46,8 @@ public class Board {
 
 		for (Coordinates start : startPoints) {
 			List<Coordinates> path = new ArrayList<Coordinates>();
-			//path.add(start);
 
-			match(rootDict, start, path, entries);
+			match(rootDict, start, path, entries, 0);
 		}
 
 		Collections.sort(entries, new LengthComparator());
@@ -72,7 +71,7 @@ public class Board {
 	 *            modifies: this
 	 */
 	private void match(Dictionary dict, Coordinates pos,
-			List<Coordinates> path, List<Entry> entries) {
+			List<Coordinates> path, List<Entry> entries, int check) {
 
 		// Check if there's a stop node within the current dictionary node. If
 		// there is, the current traversed path down the tree is a valid word
@@ -82,7 +81,7 @@ public class Board {
 			for (Coordinates coord : path) {
 				validWord += getChar(coord);
 			}
-			//System.out.println(validWord);
+			// System.out.println(validWord);
 			entries.add(new Entry(validWord, path));
 		}
 
@@ -92,40 +91,54 @@ public class Board {
 
 		// If input pos has these four sides on the board, add them to the list
 		// of neighbours.
-		if (pos.getRow() > 0)
-			neighbours.add(new Coordinates(pos.getRow() - 1, pos.getColumn()));
-		if (pos.getColumn() > 0)
-			neighbours.add(new Coordinates(pos.getRow(), pos.getColumn() - 1));
-		if (pos.getRow() < rows - 1)
-			neighbours.add(new Coordinates(pos.getRow() + 1, pos.getColumn()));
-		if (pos.getColumn() < columns - 1)
-			neighbours.add(new Coordinates(pos.getRow(), pos.getColumn() + 1));
-		// If input pos has these four diagonal corners on the board, add thme
-		// to the list of neighbours.
-		if (pos.getRow() > 0 && pos.getColumn() > 0)
-			neighbours.add(new Coordinates(pos.getRow() - 1,
-					pos.getColumn() - 1));
-		if (pos.getRow() < (rows - 1) && pos.getColumn() < (columns - 1))
-			neighbours.add(new Coordinates(pos.getRow() + 1,
-					pos.getColumn() + 1));
-		if (pos.getRow() < (rows - 1) && pos.getColumn() > 0)
-			neighbours.add(new Coordinates(pos.getRow() + 1,
-					pos.getColumn() - 1));
-		if (pos.getRow() > 0 && pos.getColumn() < (columns - 1))
-			neighbours.add(new Coordinates(pos.getRow() - 1,
-					pos.getColumn() + 1));
+		// A check is added here because on first run, the only neighbour is the
+		// actual coordinatae itself. During recursion however we would add all
+		// adjacent points to begin with.
+		if (check == 0)
+			neighbours.add(pos);
+		else {
+			if (pos.getRow() > 0)
+				neighbours.add(new Coordinates(pos.getRow() - 1, pos
+						.getColumn()));
+			if (pos.getColumn() > 0)
+				neighbours.add(new Coordinates(pos.getRow(),
+						pos.getColumn() - 1));
+			if (pos.getRow() < rows - 1)
+				neighbours.add(new Coordinates(pos.getRow() + 1, pos
+						.getColumn()));
+			if (pos.getColumn() < columns - 1)
+				neighbours.add(new Coordinates(pos.getRow(),
+						pos.getColumn() + 1));
+			// If input pos has these four diagonal corners on the board, add
+			// thme
+			// to the list of neighbours.
+			if (pos.getRow() > 0 && pos.getColumn() > 0)
+				neighbours.add(new Coordinates(pos.getRow() - 1, pos
+						.getColumn() - 1));
+			if (pos.getRow() < (rows - 1) && pos.getColumn() < (columns - 1))
+				neighbours.add(new Coordinates(pos.getRow() + 1, pos
+						.getColumn() + 1));
+			if (pos.getRow() < (rows - 1) && pos.getColumn() > 0)
+				neighbours.add(new Coordinates(pos.getRow() + 1, pos
+						.getColumn() - 1));
+			if (pos.getRow() > 0 && pos.getColumn() < (columns - 1))
+				neighbours.add(new Coordinates(pos.getRow() - 1, pos
+						.getColumn() + 1));
 
-		// Remove all coordinates in neighbours if the coordinate has already
-		// been traversed in path, or is not contained in the dictionary tree.
+			// Remove all coordinates in neighbours if the coordinate has
+			// already
+			// been traversed in path, or is not contained in the dictionary
+			// tree.
 
-		// Check in path.
-		neighbours.removeAll(path);
-		// Check in dictionary tree.
-		Iterator<Coordinates> itr = neighbours.iterator();
-		while (itr.hasNext()) {
-			Coordinates coord = itr.next();
-			if (!dict.hasChar(getChar(coord))) {
-				itr.remove();
+			// Check in path.
+			neighbours.removeAll(path);
+			// Check in dictionary tree.
+			Iterator<Coordinates> itr = neighbours.iterator();
+			while (itr.hasNext()) {
+				Coordinates coord = itr.next();
+				if (!dict.hasChar(getChar(coord))) {
+					itr.remove();
+				}
 			}
 		}
 
@@ -136,7 +149,7 @@ public class Board {
 			// Add to path for passing into recursive method.
 			path.add(currentPoint);
 			match(dict.getSubTree(getChar(currentPoint)), currentPoint, path,
-					entries);
+					entries, 1); // pass 1 to get adjacent points.
 			// Once out of recursion for that point, remove the added point from
 			// path.
 			path.remove(path.size() - 1);
