@@ -265,17 +265,26 @@ public class Board {
 		int i = 0;
 
 		while ((line = br.readLine()) != null) {
+
+			if (!Pattern.matches("[a-zA-Z]+", line)) {
+				System.out
+						.println("Invalid character or line detected. Skipping...");
+				continue;
+			}
+			
 			if (line.length() != columns) {
 				System.out.println("Invalid file column size.");
+				br.close();
 				return;
 			}
-
-			if (!Pattern.matches("[a-zA-Z]+", line))
-				System.out.println("Invalid Character.");
 
 			boardList.add(i, line);
 			i++;
 		}
+		if (boardList.size() == rows)
+			System.out.println("Board successfully built.");
+		else
+			System.out.println("Error building board, check the board file again.");
 		br.close();
 	}
 
