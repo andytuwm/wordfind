@@ -41,9 +41,9 @@ public class MainMenu {
 			return;
 		}
 		do {
-			
+
 			ans = reader.next().toLowerCase();
-			
+
 			switch (ans) {
 
 			case "help":
@@ -61,7 +61,9 @@ public class MainMenu {
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord()
-							+ "\tIncrease: " + entries.get(i).getOffset());
+							+ "\tIncrease: "
+							+ Math.max(entries.get(i).getOffset(),
+									entries.get(i).getMaxIncrease()));
 				}
 				break;
 
@@ -74,7 +76,8 @@ public class MainMenu {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord()
 								+ "\tIncrease: "
-								+ entries.get(i).getOffset());
+								+ Math.max(entries.get(i).getOffset(), entries
+										.get(i).getMaxIncrease()));
 					}
 				} else if (prevAns.equals("analyzeposition")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
@@ -115,7 +118,8 @@ public class MainMenu {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord()
 								+ "\tIncrease: "
-								+ entries.get(i).getOffset());
+								+ Math.max(entries.get(i).getOffset(), entries
+										.get(i).getMaxIncrease()));
 					}
 				} else if (prevAns.equals("analyzeposition")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
