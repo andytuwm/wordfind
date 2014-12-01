@@ -21,13 +21,10 @@ public class Dictionary {
 	private static int size;
 
 	public Dictionary() {
-		// root node '0'.
+		// arbitrary root node '0'.
 		letter = '0';
 		// 27 indexes for all alphabets + a stop node character.
 		dict = new ArrayList<Dictionary>(Arrays.asList(new Dictionary[27]));
-		// last element of root node should not be null, but should not be '*'
-		// either. Arbitrary letter is set to avoid NullPointerExceptions when
-		// detecting whether there is a stop node or not.
 	}
 
 	public Dictionary(char letter) {
