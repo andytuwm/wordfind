@@ -27,12 +27,14 @@ public class WordTest {
 		List<Entry> entries = new ArrayList<Entry>();
 		Board brd = new Board();
 		
-		entries = brd.solveBoard(dictionary, "files/board.txt");
+		//entries = brd.solveBoard(dictionary, "files/board.txt");
 
-		for ( Entry e : entries){
+		/*for ( Entry e : entries){
 			System.out.println(e.getWord());
+		}*/
+		for (int i = 0; i < 20; i++) {
+			System.out.println(entries.get(i).getWord());
 		}
-		
 		System.out.println(entries.size() + " words possible");
 		System.out.println("Dictionary has " + dictionary.getSize() + " words");
 	}
