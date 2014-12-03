@@ -28,6 +28,8 @@ analyzeOpponent - show words the opponent can potentially win with and their res
 		  
 setBoard - set board file to build from; txt file must be in the folder files.
 
+setDictionary - select either English dictionary or French dictionary. Default is English.
+
 quit - end program.
 
 Note:
