@@ -180,9 +180,11 @@ public class MainMenu {
 				if ( dictLang.equals("1") || dictLang.equalsIgnoreCase("english")){
 					processFrench = false;
 					dictFile = "files/english_dict.txt";
+					System.out.println("Language set to English.");
 				} else if (dictLang.equals("2")|| dictLang.equalsIgnoreCase("french")){
 					processFrench = true;
 					dictFile = "files/french_dict.txt";
+					System.out.println("Language set to French.");
 				} else
 					System.out.println("Invalid dictionary selection, please try again.");
 				
