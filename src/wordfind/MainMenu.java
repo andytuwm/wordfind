@@ -156,7 +156,6 @@ public class MainMenu {
 				break;
 
 			case "setboard":
-				prevAns = ans;
 				System.out
 						.println("Enter Board File Name (should be a .txt file inside the folders \"files\"):");
 				System.out
