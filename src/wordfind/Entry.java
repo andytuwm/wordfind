@@ -22,8 +22,6 @@ public class Entry {
 		path = new ArrayList<Coordinates>(passedPath);
 
 		if (topBase) {
-			maxIncrease = path.get(path.size() - 1).getRow()
-					- path.get(0).getRow();
 			maxVert = path.get(path.size() - 1).getRow() + 1;
 			for (Coordinates coords : path) {
 				if (coords.getRow() + 1 > maxVert)
@@ -36,10 +34,9 @@ public class Entry {
 				if ((rows - coords.getRow()) > maxVert)
 					maxVert = (rows - coords.getRow());
 			}
-			maxIncrease = 0 - (path.get(path.size() - 1).getRow() - path.get(0)
-					.getRow());
 			offset = rows - path.get(0).getRow();
 		}
+		maxIncrease = this.getMaxVert() - this.getOffset();
 	}
 
 	public String getWord() {

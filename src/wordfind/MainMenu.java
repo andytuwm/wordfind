@@ -67,8 +67,7 @@ public class MainMenu {
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord()
 							+ "\tIncrease: "
-							+ Math.max(entries.get(i).getOffset(),
-									entries.get(i).getMaxIncrease()));
+							+ entries.get(i).getMaxIncrease());
 				}
 				break;
 
@@ -81,8 +80,7 @@ public class MainMenu {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord()
 								+ "\tIncrease: "
-								+ Math.max(entries.get(i).getOffset(), entries
-										.get(i).getMaxIncrease()));
+								+ entries.get(i).getMaxIncrease());
 					}
 				} else if (prevAns.equals("analyzeposition")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
@@ -94,7 +92,7 @@ public class MainMenu {
 				} else if (prevAns.equals("analyzebestreach")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord() + "\t\t"
-								+ "Max Increase: "
+								+ "Increase: "
 								+ entries.get(i).getMaxIncrease());
 					}
 				} else if (prevAns.equals("analyzewin")
@@ -123,8 +121,7 @@ public class MainMenu {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord()
 								+ "\tIncrease: "
-								+ Math.max(entries.get(i).getOffset(), entries
-										.get(i).getMaxIncrease()));
+								+ entries.get(i).getMaxIncrease());
 					}
 				} else if (prevAns.equals("analyzeposition")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
@@ -136,7 +133,7 @@ public class MainMenu {
 				} else if (prevAns.equals("analyzebestreach")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord() + "\t\t"
-								+ "Max Increase: "
+								+ "Increase: "
 								+ entries.get(i).getMaxIncrease());
 					}
 				} else if (prevAns.equals("analyzewin")
@@ -218,7 +215,7 @@ public class MainMenu {
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord() + "\t\t"
-							+ "Max Increase: "
+							+ "Increase: "
 							+ entries.get(i).getMaxIncrease());
 				}
 				break;
