@@ -24,6 +24,8 @@ public class MainMenu {
 		int bottomLimit = 0;
 		int showLimit = 20;
 		boolean quit = false;
+		boolean processFrench = false;
+		String dictFile = "files/english_dict.txt";
 		String boardFile = "files/board.txt";
 		File file = new File(boardFile);
 
@@ -33,6 +35,7 @@ public class MainMenu {
 				.println("===============================================================================");
 		dispHelp();
 		if (file.exists()) {
+			System.out.println("Using English Dictionary.");
 			System.out.println("Board initialized to " + boardFile
 					+ "\nPlease enter a command:");
 		} else {
@@ -42,7 +45,8 @@ public class MainMenu {
 		}
 		do {
 
-			dict.buildDictionary("files/dict.txt");
+			System.out.println("");
+			dict.buildDictionary(dictFile, processFrench);
 			ans = reader.next().toLowerCase();
 
 			switch (ans) {
@@ -169,6 +173,21 @@ public class MainMenu {
 				}
 				break;
 
+			case "setdictionary":
+				System.out.println("Choose between English and French dictionaries.");
+				System.out.println("Enter 1 for English or 2 for French:");
+				String dictLang = reader.next();
+				if ( dictLang.equals("1") || dictLang.equalsIgnoreCase("english")){
+					processFrench = false;
+					dictFile = "files/english_dict.txt";
+				} else if (dictLang.equals("2")|| dictLang.equalsIgnoreCase("french")){
+					processFrench = true;
+					dictFile = "files/french_dict.txt";
+				} else
+					System.out.println("Invalid dictionary selection, please try again.");
+				
+				break;
+				
 			case "analyzeposition":
 				prevAns = ans;
 				bottomLimit = 0;
@@ -267,6 +286,7 @@ public class MainMenu {
 						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
 						+ "analyzeOpponent - show words the opponent can potentially win with and their\n\t\t  respective rows.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
+						+ "setDictionary - select either English dictionary or French dictionary. Default is English.\n"
 						+ "quit - end program.\n===============================================================================\n"
 						+ "Note: Rows are always counted from the base (Yours or the Opponent's).\n      Base row = 1\n"
 						+ "===============================================================================");

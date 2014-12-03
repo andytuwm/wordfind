@@ -3,6 +3,7 @@ package wordfind;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -87,13 +88,20 @@ public class Dictionary {
 	 *            text file to be read.
 	 * @throws IOException
 	 */
-	public void buildDictionary(String fileIn) throws IOException {
+	public void buildDictionary(String fileIn, boolean processFrench)
+			throws IOException {
 		size = 0;
 		BufferedReader br = new BufferedReader(new FileReader(fileIn));
 		String line;
 
 		while ((line = br.readLine()) != null) {
-			// System.out.println(line);
+
+			// if line contains accents, remove them. mainly for use with the
+			// French dictionary.
+			if (processFrench) {
+				if (Pattern.matches(".*[éèàâùêôçïîû].*", line))
+					line = removeAccents(line);
+			}
 
 			// Checks if word is allowed to be added to the Dictionary through
 			// the following criteria:
@@ -123,11 +131,11 @@ public class Dictionary {
 
 		if (c == '*' && dict.get(26) != null)
 			return true;
-		
+
 		int val = Character.toLowerCase(c) - 'a';
-		if ( val < 27 && val >= 0 )
+		if (val < 27 && val >= 0)
 			return dict.get(val) != null;
-		
+
 		return false;
 	}
 
@@ -170,5 +178,19 @@ public class Dictionary {
 	 */
 	public char getLetter() {
 		return letter;
+	}
+
+	/**
+	 * Remove accents from letters that have them and convert them to regular
+	 * english letters.
+	 * 
+	 * @param str
+	 * @return str with accents removed.
+	 */
+	public String removeAccents(String str) {
+		String nfdNormalizedString = Normalizer.normalize(str,
+				Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
 }

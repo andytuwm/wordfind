@@ -301,7 +301,7 @@ public class Board {
 		char[] chars = boardList.get(p.getRow()).toCharArray();
 		return chars[p.getColumn()];
 	}
-
+	
 	public int getRows() {
 		return rows;
 	}
