@@ -42,6 +42,7 @@ public class MainMenu {
 		}
 		do {
 
+			dict.buildDictionary("files/dict.txt");
 			ans = reader.next().toLowerCase();
 
 			switch (ans) {
@@ -54,7 +55,6 @@ public class MainMenu {
 				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new LengthComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -173,7 +173,6 @@ public class MainMenu {
 				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new PositionComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -190,7 +189,6 @@ public class MainMenu {
 				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveBoard(dict, boardFile,
 						new IncreaseComparator());
 				System.out.println("Showing " + bottomLimit + " to "
@@ -206,7 +204,6 @@ public class MainMenu {
 				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveEntireBoard(dict, boardFile, true);
 				Board.sortEntries(entries, new OffsetComparator());
 
@@ -230,7 +227,6 @@ public class MainMenu {
 				prevAns = ans;
 				bottomLimit = 0;
 				showLimit = 20;
-				dict.buildDictionary("files/dict.txt");
 				entries = brd.solveEntireBoard(dict, boardFile, false);
 				Board.sortEntries(entries, new OffsetComparator());
 
