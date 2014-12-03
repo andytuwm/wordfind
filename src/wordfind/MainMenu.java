@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import comparators.IncreaseComparator;
 import comparators.LengthComparator;
@@ -162,6 +163,8 @@ public class MainMenu {
 						.println("Include .txt file extension and type solve again after setting board.");
 				String s = boardFile;
 				boardFile = "files/" + reader.next();
+				if(!Pattern.matches(".+\\.txt$", boardFile))
+					boardFile += ".txt";
 				file = new File(boardFile);
 				if (file.exists()) {
 					System.out
