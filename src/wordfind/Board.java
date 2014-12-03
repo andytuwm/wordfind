@@ -44,8 +44,7 @@ public class Board {
 
 		// Check whether if your base is at the top or not by checking the
 		// corner of the board's case.
-		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
-			topBase = true;
+		checkBaseSide();
 
 		// Get all start points (Upper Case Letters).
 		for (int i = 0; i < rows; i++) {
@@ -98,9 +97,7 @@ public class Board {
 
 		// Check whether if your base is at the top or not by checking the
 		// corner of the board's case.
-
-		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
-			topBase = true;
+		checkBaseSide();
 
 		if (!findAllyWords) {
 			baseReverse();
@@ -271,7 +268,7 @@ public class Board {
 						.println("Invalid character or line detected. Skipping...");
 				continue;
 			}
-			
+
 			if (line.length() != columns) {
 				System.out.println("Invalid file column size.");
 				br.close();
@@ -284,7 +281,8 @@ public class Board {
 		if (boardList.size() == rows)
 			System.out.println("Board successfully built.");
 		else
-			System.out.println("Error building board, check the board file again.");
+			System.out
+					.println("Error building board, check the board file again.");
 		br.close();
 	}
 
@@ -301,7 +299,7 @@ public class Board {
 		char[] chars = boardList.get(p.getRow()).toCharArray();
 		return chars[p.getColumn()];
 	}
-	
+
 	public int getRows() {
 		return rows;
 	}
@@ -316,6 +314,13 @@ public class Board {
 
 	public void baseReverse() {
 		topBase = !topBase;
+	}
+
+	public void checkBaseSide() {
+		if (Character.isUpperCase(getChar(new Coordinates(0, 0))))
+			topBase = true;
+		else
+			topBase = false;
 	}
 
 }

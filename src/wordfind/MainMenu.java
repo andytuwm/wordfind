@@ -166,6 +166,8 @@ public class MainMenu {
 				if (file.exists()) {
 					System.out
 							.println("Board set successfully to " + boardFile);
+					brd.makeBoard(boardFile);
+					brd.checkBaseSide();
 				} else {
 					System.out.println("Board not found. Please try again.");
 					boardFile = s;
