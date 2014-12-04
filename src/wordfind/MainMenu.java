@@ -66,8 +66,7 @@ public class MainMenu {
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord()
-							+ "\tIncrease: "
-							+ entries.get(i).getMaxIncrease());
+							+ "\tIncrease: " + entries.get(i).getMaxIncrease());
 				}
 				break;
 
@@ -160,7 +159,7 @@ public class MainMenu {
 						.println("Include .txt file extension and type solve again after setting board.");
 				String s = boardFile;
 				boardFile = "files/" + reader.next();
-				if(!Pattern.matches(".+\\.txt$", boardFile))
+				if (!Pattern.matches(".+\\.txt$", boardFile))
 					boardFile += ".txt";
 				file = new File(boardFile);
 				if (file.exists()) {
@@ -175,22 +174,26 @@ public class MainMenu {
 				break;
 
 			case "setdictionary":
-				System.out.println("Choose between English and French dictionaries.");
+				System.out
+						.println("Choose between English and French dictionaries.");
 				System.out.println("Enter 1 for English or 2 for French:");
 				String dictLang = reader.next();
-				if ( dictLang.equals("1") || dictLang.equalsIgnoreCase("english")){
+				if (dictLang.equals("1")
+						|| dictLang.equalsIgnoreCase("english")) {
 					processFrench = false;
 					dictFile = "files/english_dict.txt";
 					System.out.println("Language set to English.");
-				} else if (dictLang.equals("2")|| dictLang.equalsIgnoreCase("french")){
+				} else if (dictLang.equals("2")
+						|| dictLang.equalsIgnoreCase("french")) {
 					processFrench = true;
 					dictFile = "files/french_dict.txt";
 					System.out.println("Language set to French.");
 				} else
-					System.out.println("Invalid dictionary selection, please try again.");
-				
+					System.out
+							.println("Invalid dictionary selection, please try again.");
+
 				break;
-				
+
 			case "analyzeposition":
 				prevAns = ans;
 				bottomLimit = 0;
@@ -217,8 +220,7 @@ public class MainMenu {
 						+ showLimit + " of " + entries.size() + " words.");
 				for (int i = bottomLimit; i < showLimit; i++) {
 					System.out.println(entries.get(i).getWord() + "\t\t"
-							+ "Increase: "
-							+ entries.get(i).getMaxIncrease());
+							+ "Increase: " + entries.get(i).getMaxIncrease());
 				}
 				break;
 
