@@ -182,11 +182,13 @@ public class MainMenu {
 						|| dictLang.equalsIgnoreCase("english")) {
 					processFrench = false;
 					dictFile = "files/english_dict.txt";
+					dict = new Dictionary();
 					System.out.println("Language set to English.");
 				} else if (dictLang.equals("2")
 						|| dictLang.equalsIgnoreCase("french")) {
 					processFrench = true;
 					dictFile = "files/french_dict.txt";
+					dict = new Dictionary();
 					System.out.println("Language set to French.");
 				} else
 					System.out
