@@ -4,7 +4,7 @@ A word solver for the mobile game [Wordbase](https://play.google.com/store/apps/
 
 Download: 
 ========
-Download the zip file from the [release](https://github.com/andytuwm/wordfind/releases) page. Extract all contents into same directory. Click "launch.bat" to start the program. Run "launch.bat" as admin if Windows prevents you from running the batch script.
+Download the zip file from the [release page](https://github.com/andytuwm/wordfind/releases). Extract all contents into the same directory. Click "launch.bat" to start the program. Run "launch.bat" as admin if Windows prevents you from running the batch script. If problems with launching the program still persists, try installing the latest [Java runtime](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
 
 Commands Available:
 =========
