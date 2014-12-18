@@ -281,8 +281,7 @@ public class Board {
 		if (boardList.size() == rows)
 			System.out.println("Board successfully built.");
 		else
-			System.out
-					.println("Error building board, check the board file again.");
+			System.out.println("Error building board, check the board file again.");
 		br.close();
 	}
 

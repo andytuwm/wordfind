@@ -25,6 +25,8 @@ public class MainMenu {
 		int bottomLimit = 0;
 		int showLimit = 20;
 		int tempLimit = 20;
+		int rows = 13; // unfortunately this is temporarily hard-coded.
+		int columns = 10;
 		boolean quit = false;
 		boolean processFrench = false;
 		boolean atEnd = false;
@@ -304,22 +306,32 @@ public class MainMenu {
 				break;
 
 			case "analyzepoint":
+				prevAns = ans;
 				System.out
 						.println("Enter X-Y Coordinates of point on board, separated by a space:");
 				reader.nextLine(); // Eat floating \n character with arbitrary
 									// nextLine call.
 				String pt = reader.nextLine();
 				if (Pattern.matches("([0-9 ]*[a-zA-Z]+[0-9 ]*)*", pt)
-						|| Pattern.matches(" +", pt)) {
+				// handles anything with alphabets
+						|| Pattern.matches(" *(\n)*", pt)
+						// handles empty inputs
+						|| Pattern.matches(" *[0-9]+ *", pt)
+				/* handles singular inputs */) {
 					System.out.println("Invalid Coordinates.");
 				} else {
-					String[] points = pt.split("[\\s]+"); // convert input to
-															// coordinate.
-					Coordinates cd = new Coordinates(
-							Integer.parseInt(points[0]),
-							Integer.parseInt(points[1]));
+					// Parse and split the input
+					String[] points = pt.split("[\\s]+");
+					int x = Integer.parseInt(points[0]);
+					int y = Integer.parseInt(points[1]);
+					// Check if entered coordinates are within bounds.
+					if (y > rows - 1 || x > columns - 1) {
+						System.out.println("Coordinates outside of board.");
+						break;
+					}
+					// convert input to coordinates.
+					Coordinates cd = new Coordinates(x, y);
 
-					prevAns = ans;
 					entries = brd.solveEntireBoard(dict, boardFile, true);
 					Board.sortEntries(entries, new LengthComparator());
 
@@ -332,10 +344,9 @@ public class MainMenu {
 
 					bottomLimit = 0;
 					if (entries.size() <= 20)
-						showLimit = entries.size(); // set limit here because
-													// there
-					// might not be at least 20 possible
-					// words from specified point.
+						showLimit = entries.size();
+					// set limit here because there might not be at least 20
+					// possible words from specified point.
 					else
 						showLimit = 20;
 					// Grab letter from arbitrary first entry since all entries
