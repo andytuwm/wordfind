@@ -351,8 +351,10 @@ public class MainMenu {
 						showLimit = 20;
 					// Grab letter from arbitrary first entry since all entries
 					// should have same starting point now.
+					System.out.println("");
 					System.out.println("Analyzing from the letter "
-							+ brd.getChar(entries.get(0).getPath().get(0)));
+							+ Character.toUpperCase(brd.getChar(entries.get(0)
+									.getPath().get(0))));
 					System.out.println("Showing " + bottomLimit + " to "
 							+ showLimit + " of " + entries.size() + " words.");
 					for (int i = bottomLimit; i < showLimit; i++) {
