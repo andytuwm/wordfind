@@ -14,7 +14,7 @@ public class Entry {
 
 	private String word;
 	private List<Coordinates> path;
-	private int maxVert, maxIncrease, offset, numRows, numCols;
+	private int maxVert, maxIncrease, offset, numRows;
 	private boolean topBase = false;
 
 	public Entry(String word, List<Coordinates> passedPath) {
@@ -47,7 +47,6 @@ public class Entry {
 		}
 		maxIncrease = this.getMaxVert() - this.getOffset();
 		numRows = rows;
-		numCols = columns;
 	}
 
 	// Public getter methods, do not modify the object at the reference.

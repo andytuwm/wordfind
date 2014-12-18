@@ -73,7 +73,7 @@ public class MainMenu {
 				break;
 
 			case "next":
-				if(showLimit + 20 > entries.size() && atEnd ) {
+				if (showLimit + 20 > entries.size() && atEnd) {
 					System.out.println("Already at end of list.");
 					break;
 				}
@@ -370,7 +370,7 @@ public class MainMenu {
 						+ "analyzeBestReach - show best words that allow for maximum distance gain towards \n\t\t   opponent's base.\n"
 						+ "analyzePosition - show words closest to opponent's base.\n"
 						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
-						+ "analyzePoint - show longest words from the letter specified by input coordinates. Point (0,0) is always bottom left.\n"
+						+ "analyzePoint - show longest words from the letter specified by input coordinates.\n\t       point (0,0) is always bottom left.\n"
 						+ "analyzeOpponent - show words the opponent can potentially win with and their\n\t\t  respective rows.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
 						+ "setDictionary - select either English dictionary or French dictionary. Default is English.\n"
