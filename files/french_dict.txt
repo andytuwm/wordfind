@@ -1,4 +1,4 @@
-âcre
+﻿âcre
 âcres
 âcreté
 âge
@@ -66680,6 +66680,7 @@ grenues
 grenus
 gressin
 gressins
+greser
 greva
 grevaient
 grevais
