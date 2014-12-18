@@ -1,8 +1,8 @@
 package wordfind;
 
 /**
- * Coordinates class that is determined in terms of rows and
- * columns.
+ * Coordinates class that is determined in terms of rows and columns. Row starts
+ * from the top from 0, and Columns start from the left from 0.
  * 
  * @author Andy
  *

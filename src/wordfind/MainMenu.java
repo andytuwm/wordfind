@@ -24,8 +24,10 @@ public class MainMenu {
 		Board brd = new Board();
 		int bottomLimit = 0;
 		int showLimit = 20;
+		int tempLimit = 20;
 		boolean quit = false;
 		boolean processFrench = false;
+		boolean atEnd = false;
 		String dictFile = "files/english_dict.txt";
 		String boardFile = "files/board.txt";
 		File file = new File(boardFile);
@@ -71,8 +73,18 @@ public class MainMenu {
 				break;
 
 			case "next":
+				if(showLimit + 20 > entries.size() && atEnd ) {
+					System.out.println("Already at end of list.");
+					break;
+				}
 				bottomLimit += 20;
+				tempLimit = showLimit;
 				showLimit += 20;
+				if (showLimit > entries.size()) {
+					showLimit = entries.size();
+					atEnd = true;
+				}
+
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				if (prevAns.equals("solve")) {
@@ -101,10 +113,17 @@ public class MainMenu {
 								+ "\t\tStarting Row: "
 								+ entries.get(i).getOffset());
 					}
+				} else if (prevAns.equals("analyzepoint")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
 				} else {
 					System.out
 							.println("Please solve or analyze the board before sending this command.");
 				}
+
 				break;
 
 			case "back":
@@ -113,7 +132,12 @@ public class MainMenu {
 					continue;
 				}
 				bottomLimit -= 20;
-				showLimit -= 20;
+				if (!atEnd)
+					showLimit -= 20;
+				else {
+					showLimit = tempLimit;
+					atEnd = false;
+				}
 				System.out.println("Showing " + bottomLimit + " to "
 						+ showLimit + " of " + entries.size() + " words.");
 				if (prevAns.equals("solve")) {
@@ -141,6 +165,12 @@ public class MainMenu {
 						System.out.println(entries.get(i).getWord()
 								+ "\t\tStarting Row: "
 								+ entries.get(i).getOffset());
+					}
+				} else if (prevAns.equals("analyzepoint")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
 					}
 				} else {
 					System.out
@@ -273,6 +303,55 @@ public class MainMenu {
 				brd.baseReverse();
 				break;
 
+			case "analyzepoint":
+				System.out
+						.println("Enter X-Y Coordinates of point on board, separated by a space:");
+				reader.nextLine(); // Eat floating \n character with arbitrary
+									// nextLine call.
+				String pt = reader.nextLine();
+				if (Pattern.matches("([0-9 ]*[a-zA-Z]+[0-9 ]*)*", pt)
+						|| Pattern.matches(" +", pt)) {
+					System.out.println("Invalid Coordinates.");
+				} else {
+					String[] points = pt.split("[\\s]+"); // convert input to
+															// coordinate.
+					Coordinates cd = new Coordinates(
+							Integer.parseInt(points[0]),
+							Integer.parseInt(points[1]));
+
+					prevAns = ans;
+					entries = brd.solveEntireBoard(dict, boardFile, true);
+					Board.sortEntries(entries, new LengthComparator());
+
+					Iterator<Entry> iter = entries.iterator();
+					while (iter.hasNext()) {
+						Entry ent = iter.next();
+						if (!ent.getFirstCoord().equals(cd))
+							iter.remove();
+					}
+
+					bottomLimit = 0;
+					if (entries.size() <= 20)
+						showLimit = entries.size(); // set limit here because
+													// there
+					// might not be at least 20 possible
+					// words from specified point.
+					else
+						showLimit = 20;
+					// Grab letter from arbitrary first entry since all entries
+					// should have same starting point now.
+					System.out.println("Analyzing from the letter "
+							+ brd.getChar(entries.get(0).getPath().get(0)));
+					System.out.println("Showing " + bottomLimit + " to "
+							+ showLimit + " of " + entries.size() + " words.");
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				}
+				break;
+
 			default:
 				System.out.println("Invalid Command, try again.");
 				break;
@@ -291,6 +370,7 @@ public class MainMenu {
 						+ "analyzeBestReach - show best words that allow for maximum distance gain towards \n\t\t   opponent's base.\n"
 						+ "analyzePosition - show words closest to opponent's base.\n"
 						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
+						+ "analyzePoint - show longest words from the letter specified by input coordinates. Point (0,0) is always bottom left.\n"
 						+ "analyzeOpponent - show words the opponent can potentially win with and their\n\t\t  respective rows.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
 						+ "setDictionary - select either English dictionary or French dictionary. Default is English.\n"
