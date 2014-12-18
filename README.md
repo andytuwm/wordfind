@@ -24,6 +24,8 @@ analyzePosition - show words closest to opponent's base.
 analyzeWin - show words that allow  you to win - processing may take time.
 
 analyzeOpponent - show words the opponent can potentially win with and their respective rows.
+
+analyzePoint - show all words you can play from a specific letter, determined by X-Y coordinates. Coordinates must be inputted in the following format: `a b` where a and b are positive integers separated by a space character. No parentheses should be inputted and the coordinate system is always the same regardless which side your base is on. The X-Y coordinates start from 0 to 9 for x-axis and 0 to 12 for y-axis. Examples: `0 0` is always bottom left, `9 12` is always top right, `2 5` is the letter N in the sample board below.
 		  
 setBoard - set board file to build from; txt file must be in the folder files.
 
