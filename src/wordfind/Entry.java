@@ -75,10 +75,21 @@ public class Entry {
 	}
 
 	public Coordinates getFirstCoord() {
-		int x = path.get(0).getColumn(); 
+		int x = path.get(0).getColumn();
 		int y = numRows - path.get(0).getRow() - 1;
-		Coordinates cd = new Coordinates(x,y);
+		Coordinates cd = new Coordinates(x, y);
 		return cd;
+	}
+
+	/**
+	 * Checks if this entry contains the specified coordinate in its path.
+	 * 
+	 * @return true if specified coordinate is in its path; false otherwise.
+	 */
+	public boolean containsCoord(Coordinates c) {
+		if (path.contains(c))
+			return true;
+		return false;
 	}
 
 }
