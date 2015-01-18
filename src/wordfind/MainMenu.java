@@ -75,7 +75,8 @@ public class MainMenu {
 				break;
 
 			case "next":
-				if (showLimit + 20 > entries.size() && atEnd) {
+				if ((showLimit + 20 > entries.size() && atEnd)
+						|| bottomLimit + 20 > entries.size()) {
 					System.out.println("Already at end of list.");
 					break;
 				}
