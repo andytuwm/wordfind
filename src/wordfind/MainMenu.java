@@ -326,7 +326,7 @@ public class MainMenu {
 				reader.nextLine(); // Eat floating \n char
 
 				String pts = reader.nextLine();
-				if (Pattern.matches(" *([0-9]+ +[0-9]+]) *", pts)) {
+				if (Pattern.matches(" *([0-9]+ +[0-9]+) *", pts)) {
 					// One coordinate case
 					String[] points = pts.split("[\\s]+");
 					int x = Integer.parseInt(points[0]);
@@ -339,8 +339,8 @@ public class MainMenu {
 					// Convert input to coordinates.
 					Coordinates cd = new Coordinates(x, y);
 
-					entries = brd.solveEntireBoard(dict, boardFile, true);
-					Board.sortEntries(entries, new LengthComparator());
+					entries = brd.solveBoard(dict, boardFile,
+							new LengthComparator());
 
 					// Keep only entries where specified coordinate is in path.
 					Iterator<Entry> iter = entries.iterator();
@@ -370,7 +370,7 @@ public class MainMenu {
 
 				} else if (Pattern
 						.matches(
-								" *([ 0-9 ]+ +[ 0-9 ]+){1}( *,{1} *([ 0-9 ]+ +[ 0-9 ]+){1} *)*",
+								" *([0-9]+ +[0-9]+){1}( *,{1} *([0-9]+ +[0-9]+){1} *)*",
 								pts)) {
 
 					List<Coordinates> list = new ArrayList<>();
@@ -404,6 +404,9 @@ public class MainMenu {
 				} else {
 					System.out.println("Invalid Coordinates.");
 				}
+
+				break;
+
 			case "analyzepoint":
 				prevAns = ans;
 				System.out
