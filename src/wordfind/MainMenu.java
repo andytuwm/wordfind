@@ -327,11 +327,11 @@ public class MainMenu {
 
 				String pts = reader.nextLine();
 				if (Pattern.matches(" *([0-9]+ +[0-9]+){1} *", pts)) {
-					
+
 					// One coordinate case
 					pts = pts.trim(); // Remove trailing/leading spaces.
 					String[] points = pts.split("[\\s]+");
-					
+
 					int x = Integer.parseInt(points[0]);
 					int y = (rows - 1) - Integer.parseInt(points[1]);
 					// Check if entered coordinates are within bounds.
@@ -385,26 +385,61 @@ public class MainMenu {
 
 					// Process first and last coordinates in case there are
 					// extra spaces.
-					coordList[0].trim();
-					coordList[numPoints - 1].trim();
+					coordList[0] = coordList[0].trim();
+					coordList[numPoints - 1] = coordList[numPoints - 1].trim();
 
 					for (int i = 0; i < numPoints; i++) {
-						String[] point = coordList[i].split("\\s+");
+
+						String[] point = coordList[i].split("[\\s]+");
 
 						int x = Integer.parseInt(point[0]);
-						int y = Integer.parseInt(point[1]);
+						int y = (rows - 1) - Integer.parseInt(point[1]);
 						// Check if entered coordinates are within bounds.
 						if (y > rows - 1 || x > columns - 1) {
 							System.out.println("Coordinates outside of board.");
 							break;
 						}
-						// convert input to coordinates.
-						Coordinates cd = new Coordinates(x, y);
+						// Convert input to coordinates. Reversed because the
+						// way
+						// coordinates are counted in the method solveBoard and
+						// solveEntireBoard are reversed.
+						Coordinates cd = new Coordinates(y, x);
 						list.add(cd);
 					}
 
-					entries = brd.solveEntireBoard(dict, boardFile, true);
-					Board.sortEntries(entries, new LengthComparator());
+					entries = brd.solveBoard(dict, boardFile,
+							new LengthComparator());
+
+					// Keep only entries where specified coordinate is in path.
+					Iterator<Entry> iter = entries.iterator();
+					while (iter.hasNext()) {
+						Entry ent = iter.next();
+						if (!ent.containsCoords(list))
+							iter.remove();
+					}
+
+					bottomLimit = 0;
+					if (entries.size() <= 20)
+						showLimit = entries.size();
+					// set limit here because there might not be at least 20
+					// possible words from specified point.
+					else
+						showLimit = 20;
+					System.out.print("\nShowing words containing: ");
+					for (int i = 0; i < list.size(); i++) {
+						if (i != 0)
+							System.out.print(",");
+						System.out
+								.print(Character.toUpperCase(brd
+												.getChar(list.get(i))));
+					}
+					System.out.println("\nShowing " + bottomLimit + " to "
+							+ showLimit + " of " + entries.size() + " words.");
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
 
 				} else {
 					System.out.println("Invalid Coordinates.");

@@ -92,4 +92,17 @@ public class Entry {
 		return false;
 	}
 
+	/**
+	 * Check if this entry contains all coordinates in the list in its path.
+	 * 
+	 * @param c
+	 *            list of coordinates
+	 * @return true if all coordinates in list is in path; false otherwise.
+	 */
+	public boolean containsCoords(List<Coordinates> c) {
+		if (path.containsAll(c))
+			return true;
+		return false;
+	}
+
 }
