@@ -121,6 +121,12 @@ public class MainMenu {
 								+ "\tIncrease: "
 								+ entries.get(i).getMaxIncrease());
 					}
+				} else if (prevAns.equals("analyzecutoff")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
 				} else {
 					System.out
 							.println("Please solve or analyze the board before sending this command.");
@@ -169,6 +175,12 @@ public class MainMenu {
 								+ entries.get(i).getOffset());
 					}
 				} else if (prevAns.equals("analyzepoint")) {
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
+				} else if (prevAns.equals("analyzecutoff")) {
 					for (int i = bottomLimit; i < showLimit; i++) {
 						System.out.println(entries.get(i).getWord()
 								+ "\tIncrease: "
@@ -305,6 +317,93 @@ public class MainMenu {
 				brd.baseReverse();
 				break;
 
+			case "analyzecutoff":
+				prevAns = ans;
+				System.out
+						.println("Enter X-Y Coordinates of desired point on board, separated by a space.");
+				System.out
+						.println("For multiple points, separate each pair of coordinates by a comma.");
+				reader.nextLine(); // Eat floating \n char
+
+				String pts = reader.nextLine();
+				if (Pattern.matches(" *([0-9]+ +[0-9]+]) *", pts)) {
+					// One coordinate case
+					String[] points = pts.split("[\\s]+");
+					int x = Integer.parseInt(points[0]);
+					int y = Integer.parseInt(points[1]);
+					// Check if entered coordinates are within bounds.
+					if (y > rows - 1 || x > columns - 1) {
+						System.out.println("Coordinates outside of board.");
+						break;
+					}
+					// Convert input to coordinates.
+					Coordinates cd = new Coordinates(x, y);
+
+					entries = brd.solveEntireBoard(dict, boardFile, true);
+					Board.sortEntries(entries, new LengthComparator());
+
+					// Keep only entries where specified coordinate is in path.
+					Iterator<Entry> iter = entries.iterator();
+					while (iter.hasNext()) {
+						Entry ent = iter.next();
+						if (!ent.containsCoord(cd))
+							iter.remove();
+					}
+
+					bottomLimit = 0;
+					if (entries.size() <= 20)
+						showLimit = entries.size();
+					// set limit here because there might not be at least 20
+					// possible words from specified point.
+					else
+						showLimit = 20;
+					System.out.println("");
+					System.out.println("Showing words containing "
+							+ Character.toUpperCase(brd.getChar(cd)));
+					System.out.println("Showing " + bottomLimit + " to "
+							+ showLimit + " of " + entries.size() + " words.");
+					for (int i = bottomLimit; i < showLimit; i++) {
+						System.out.println(entries.get(i).getWord()
+								+ "\tIncrease: "
+								+ entries.get(i).getMaxIncrease());
+					}
+
+				} else if (Pattern
+						.matches(
+								" *([ 0-9 ]+ +[ 0-9 ]+){1}( *,{1} *([ 0-9 ]+ +[ 0-9 ]+){1} *)*",
+								pts)) {
+
+					List<Coordinates> list = new ArrayList<>();
+					// TODO multi coordinate case
+					String[] coordList = pts.split(" *,{1} *");
+					int numPoints = coordList.length;
+
+					// Process first and last coordinates in case there are
+					// extra spaces.
+					coordList[0].trim();
+					coordList[numPoints - 1].trim();
+
+					for (int i = 0; i < numPoints; i++) {
+						String[] point = coordList[i].split("\\s+");
+
+						int x = Integer.parseInt(point[0]);
+						int y = Integer.parseInt(point[1]);
+						// Check if entered coordinates are within bounds.
+						if (y > rows - 1 || x > columns - 1) {
+							System.out.println("Coordinates outside of board.");
+							break;
+						}
+						// convert input to coordinates.
+						Coordinates cd = new Coordinates(x, y);
+						list.add(cd);
+					}
+
+					entries = brd.solveEntireBoard(dict, boardFile, true);
+					Board.sortEntries(entries, new LengthComparator());
+
+				} else {
+					System.out.println("Invalid Coordinates.");
+				}
 			case "analyzepoint":
 				prevAns = ans;
 				System.out
