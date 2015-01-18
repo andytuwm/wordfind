@@ -114,8 +114,6 @@ abbreviator
 abbreviators
 abbé
 abbés
-abc
-abcs
 abderhalden
 abderite
 abdicable
@@ -25472,6 +25470,7 @@ coarsens
 coarser
 coarsest
 coassist
+coassisted
 coassume
 coast
 coastal
@@ -41265,6 +41264,7 @@ dumpling
 dumplings
 dumps
 dumpster
+dumpsters
 dumpy
 dun
 dunam
@@ -121883,7 +121883,6 @@ scute
 scutella
 scutes
 scutiform
-scutigera
 scuts
 scutter
 scutters
