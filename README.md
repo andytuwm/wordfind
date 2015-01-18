@@ -25,7 +25,9 @@ analyzeWin - show words that allow  you to win - processing may take time.
 
 analyzeOpponent - show words the opponent can potentially win with and their respective rows.
 
-analyzePoint - show all words you can play from a specific letter, determined by X-Y coordinates. Coordinates must be inputted in the following format: `a b` where a and b are positive integers separated by a space character. No parentheses should be inputted and the coordinate system is always the same regardless which side your base is on. The X-Y coordinates start from 0 to 9 for x-axis and 0 to 12 for y-axis. Examples: `0 0` is always bottom left, `9 12` is always top right, `2 5` is the letter N in the sample board below.
+analyzePoint - show all words you can play from a specific letter, determined by X-Y coordinates. Coordinates must be inputed in the following format: `a b` where a and b are positive integers separated by a space character. No parentheses should be inputted and the coordinate system is always the same regardless which side your base is on. The X-Y coordinates start from 0 to 9 for x-axis and 0 to 12 for y-axis. Examples: `0 0` is always bottom left, `9 12` is always top right, `2 5` is the letter N in the sample board below.
+
+analyzeCutoff - show all words that traverse through the specified point. Useful for finding words to cut people off. Coordinates are inputed the same format as in analyzePoint above. For finding words that traverse through multiple points, you must use a comma `,` to separate the coordinates. An example of analyzing a single coordinate would be inputing `2 4`. An example of analyzing multiple coordinates would be `4 5, 6 4`.
 		  
 setBoard - set board file to build from; txt file must be in the folder files.
 

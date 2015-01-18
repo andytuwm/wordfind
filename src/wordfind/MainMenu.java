@@ -379,7 +379,7 @@ public class MainMenu {
 								pts)) {
 
 					List<Coordinates> list = new ArrayList<>();
-					// TODO multi coordinate case
+					// Multi-coordinate case
 					String[] coordList = pts.split(" *,{1} *");
 					int numPoints = coordList.length;
 
@@ -429,9 +429,8 @@ public class MainMenu {
 					for (int i = 0; i < list.size(); i++) {
 						if (i != 0)
 							System.out.print(",");
-						System.out
-								.print(Character.toUpperCase(brd
-												.getChar(list.get(i))));
+						System.out.print(Character.toUpperCase(brd.getChar(list
+								.get(i))));
 					}
 					System.out.println("\nShowing " + bottomLimit + " to "
 							+ showLimit + " of " + entries.size() + " words.");
@@ -527,6 +526,7 @@ public class MainMenu {
 						+ "analyzeWin - show words that allow  you to win - processing may take time.\n"
 						+ "analyzePoint - show longest words from the letter specified by input coordinates.\n\t       point (0,0) is always bottom left.\n"
 						+ "analyzeOpponent - show words the opponent can potentially win with and their\n\t\t  respective rows.\n"
+						+ "analyzeCutoff - show words that traverse through the specified point.\n"
 						+ "setBoard - set board file to build from; txt file must be in the folder files.\n"
 						+ "setDictionary - select either English dictionary or French dictionary. Default is English.\n"
 						+ "quit - end program.\n===============================================================================\n"
