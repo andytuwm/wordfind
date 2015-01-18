@@ -326,18 +326,23 @@ public class MainMenu {
 				reader.nextLine(); // Eat floating \n char
 
 				String pts = reader.nextLine();
-				if (Pattern.matches(" *([0-9]+ +[0-9]+) *", pts)) {
+				if (Pattern.matches(" *([0-9]+ +[0-9]+){1} *", pts)) {
+					
 					// One coordinate case
+					pts = pts.trim(); // Remove trailing/leading spaces.
 					String[] points = pts.split("[\\s]+");
+					
 					int x = Integer.parseInt(points[0]);
-					int y = Integer.parseInt(points[1]);
+					int y = (rows - 1) - Integer.parseInt(points[1]);
 					// Check if entered coordinates are within bounds.
 					if (y > rows - 1 || x > columns - 1) {
 						System.out.println("Coordinates outside of board.");
 						break;
 					}
-					// Convert input to coordinates.
-					Coordinates cd = new Coordinates(x, y);
+					// Convert input to coordinates. Reversed because the way
+					// coordinates are counted in the method solveBoard and
+					// solveEntireBoard are reversed.
+					Coordinates cd = new Coordinates(y, x);
 
 					entries = brd.solveBoard(dict, boardFile,
 							new LengthComparator());
