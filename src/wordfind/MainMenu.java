@@ -380,7 +380,8 @@ public class MainMenu {
 						// coordinates are counted in the method solveBoard and
 						// solveEntireBoard are reversed.
 						Coordinates cd = new Coordinates(y, x);
-						list.add(cd);
+						if (!list.contains(cd))
+							list.add(cd);
 					}
 
 					entries = brd.solveBoard(dict, boardFile,
